@@ -7,8 +7,9 @@ import {
   Text,
   FlatList,
   ListRenderItemInfo,
+  Button,
 } from 'react-native';
-import { createDb } from './Database';
+import { createDb, produceError } from './Database';
 import type { User } from './model/User';
 import { Buffer } from "buffer";
 
@@ -21,10 +22,19 @@ export default function App() {
     });
   }, []);
 
+  const handleClick = React.useCallback(() => {
+    produceError();
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
         data={users}
+        ListHeaderComponent={
+          <>
+            <Button title="Test" onPress={handleClick} />
+          </>
+        }
         renderItem={(info: ListRenderItemInfo<User>) => {
           return (
             <View
